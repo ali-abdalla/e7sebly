@@ -1,41 +1,54 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Input from "./components/input";
+import CutsomInput from "./components/input";
 
 export default class Order extends React.Component {
-    tax;
-    service;
-    discount;
-    other;
-    total;
+    orderDetails = {
+        tax: '',
+        service: '',
+        discount: '',
+        other: '',
+        total: '',
+        orders: '',
+    }
+
     state = {
         result: ""
     }
     onPressCalculate = () => {
-        let res = (
-            this.parseStringtoNumber(this.tax) + this.parseStringtoNumber(this.service) - this.parseStringtoNumber(this.discount) + this.parseStringtoNumber(this.other)
-        ) / this.parseStringtoNumber(this.total);
+        let percentage = (this.parseStringtoNumber(this.orderDetails.tax) + this.parseStringtoNumber(this.orderDetails.service) - this.parseStringtoNumber(this.orderDetails.discount) + this.parseStringtoNumber(this.orderDetails.other))
+            / this.parseStringtoNumber(this.orderDetails.total);
+
+        let res = this.sumInputs(this.orderDetails.orders) * (percentage + 1);
         this.setState({
-            result: `${this.parseStringtoNumber(res)}`,
+            result: `${this.parseStringtoNumber(res)}`
         });
     }
-    
-    parseStringtoNumber(str){
-        return isNaN(Number(str))?0.0:Number(str);
+
+    parseStringtoNumber(str) {
+        return isNaN(Number(str)) ? 0.0 : Number(str);
     }
 
+    sumInputs(data) {
+        let nums = data.toString().split(',');
+        let sum = nums.reduce((total = 0, num) => {
+            return this.parseStringtoNumber(total) + this.parseStringtoNumber(num);
+        });
+        return sum;
+    }
     updateStatus = (key, value) => {
-        this[key] = value;
+        this.orderDetails[key] = value;
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Input type='numeric' label="Tax" value={this.tax} updateStatus={this.updateStatus.bind(this, "tax")} name="tax"></Input>
-                <Input type='numeric' label="Service" value={this.sservice} updateStatus={this.updateStatus.bind(this, "service")} name="service"></Input>
-                <Input type='numeric' label="Discount" value={this.discount} updateStatus={this.updateStatus.bind(this, "discount")} name="discount"></Input>
-                <Input type='numeric' label="Others" value={this.other} updateStatus={this.updateStatus.bind(this, "other")} name="other"></Input>
-                <Input type='numeric' label="Total" value={this.total} updateStatus={this.updateStatus.bind(this, "total")} name="total"></Input>
+                <CutsomInput type='numeric' label="Tax" value={this.orderDetails.tax} updateStatus={this.updateStatus.bind(this, "tax")}></CutsomInput>
+                <CutsomInput type='numeric' label="Service" value={this.orderDetails.sservice} updateStatus={this.updateStatus.bind(this, "service")}></CutsomInput>
+                <CutsomInput type='numeric' label="Discount" value={this.orderDetails.discount} updateStatus={this.updateStatus.bind(this, "discount")}></CutsomInput>
+                <CutsomInput type='numeric' label="Others" value={this.orderDetails.other} updateStatus={this.updateStatus.bind(this, "other")}></CutsomInput>
+                <CutsomInput type='numeric' label="Sub Total" value={this.orderDetails.total} updateStatus={this.updateStatus.bind(this, "total")}></CutsomInput>
+                <CutsomInput type='numeric' label="your orders" value={this.orderDetails.orders} updateStatus={this.updateStatus.bind(this, "orders")}></CutsomInput>
 
                 <TouchableOpacity onPress={this.onPressCalculate} style={styles.btn}>
                     <Text style={{ color: "white" }}>Calculate</Text>
@@ -49,8 +62,8 @@ export default class Order extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        left: "5%",
-        top: "5%"
+        left: "1%",
+        top: "3%"
     },
     btn: {
         backgroundColor: "#008CBA",

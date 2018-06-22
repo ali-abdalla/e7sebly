@@ -1,23 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
+import { Header } from 'react-native-elements';
 import Order from "./order";
 
 export default class App extends React.Component {
   render() {
     return (
       <View>
-        <Text>Welcome to E7sebly</Text>
+        <Header
+          centerComponent={{ text: 'Welcome to E7sebly', style: { color: '#fff' } }}
+        />
         <Order></Order>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
