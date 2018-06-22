@@ -1,5 +1,11 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "e7sebly",
+    "description": "e7sbely is an application to calculate the each one order cost",
+    "sdkVersion": "27.0.0",
+    "android": {
+      "package": "com.abdo38013.e7sebly",
+      "versionCode": 1
+    }
   }
 }
