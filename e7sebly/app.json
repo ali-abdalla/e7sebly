@@ -8,6 +8,10 @@
       "icon":"./logo.png",
       "package": "com.abdo38013.e7sebly",
       "versionCode": 1
+    },
+    "splash": {
+      "image": "./logo.png",
+      "backgroundColor": "#FFF"
     }
   }
 }

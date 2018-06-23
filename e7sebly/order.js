@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         top: "3%"
     },
     btn: {
-        backgroundColor: "#008CBA",
+        backgroundColor: "#fb8200",
         alignItems: 'center',
         padding: 10,
         width: "50%"
